@@ -1,0 +1,33 @@
+<%- include('layout', {
+  body: `
+    <div class="category-header" style="--cat-color: ${category.color}">
+      <span class="category-header-icon">${category.icon}</span>
+      <h1 class="page-title" style="color: ${category.color}">${category.name}</h1>
+      <p class="page-subtitle">${category.description}</p>
+      <a href="/categories" class="back-link">← All Categories</a>
+    </div>
+
+    <div class="posts-list">
+      ${posts.length === 0 ? `
+        <div class="empty-state">
+          <div class="terminal-prompt">find ./posts -category "${category.name}"</div>
+          <div class="terminal-response">No posts yet. Stay tuned.</div>
+        </div>
+      ` : posts.map(post => `
+        <a href="/post/${post.slug}" class="post-card" style="border-left-color: ${category.color}">
+          <h2 class="post-title">${post.title}</h2>
+          <div class="post-meta">
+            <span>${post.formatted_date}</span>
+            <span class="reading-time">${post.reading_time} min read</span>
+          </div>
+          <p class="post-excerpt">${post.excerpt}</p>
+          <div class="post-tags">
+            ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+          </div>
+        </a>
+      `).join('')}
+    </div>
+  `,
+  title: category.name,
+  description: category.description
+}) %>

@@ -1,0 +1,20 @@
+<%- include('layout', {
+  body: `
+    <div class="error-page">
+      <div class="error-content">
+        <h1 class="error-code">404</h1>
+        <h2 class="error-title">Lost in the Void</h2>
+        <p class="error-message">
+          The page you're looking for has vanished into the digital abyss. 
+          Perhaps it was banished by a security patch, or maybe it never existed at all.
+        </p>
+        <div class="error-actions">
+          <a href="/" class="error-button primary">Return to Safety</a>
+          <a href="/about" class="error-button secondary">Learn About Belial</a>
+        </div>
+      </div>
+    </div>
+  `,
+  title: '404 - Page Not Found',
+  description: 'The page you are looking for could not be found.'
+}) %>

@@ -1,0 +1,33 @@
+{
+  "name": "belial-blog",
+  "version": "1.0.0",
+  "description": "Belial's cybersecurity blog - dark themed, elegant, and built for security researchers",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "pm2:start": "pm2 start ecosystem.config.js",
+    "pm2:stop": "pm2 stop belial-blog",
+    "pm2:restart": "pm2 restart belial-blog",
+    "pm2:delete": "pm2 delete belial-blog",
+    "pm2:logs": "pm2 logs belial-blog"
+  },
+  "keywords": [
+    "cybersecurity",
+    "blog",
+    "security-research",
+    "pentesting",
+    "malware-analysis"
+  ],
+  "author": "Belial",
+  "license": "MIT",
+  "dependencies": {
+    "better-sqlite3": "^12.6.2",
+    "ejs": "^4.0.1",
+    "express": "^5.2.1",
+    "highlight.js": "^11.11.1",
+    "marked": "^17.0.2",
+    "sharp": "^0.34.5",
+    "viem": "^2.45.3"
+  }
+}

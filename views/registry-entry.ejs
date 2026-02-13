@@ -1,0 +1,125 @@
+<%- include('layout', {
+  body: `
+    <div class="registry-entry-page">
+      <div class="entry-header">
+        <div class="entry-nav">
+          <a href="/registry" class="back-link">← Back to Registry</a>
+        </div>
+        
+        <div class="entry-badges">
+          <span class="severity-badge severity-${entry.severity}">
+            ${entry.severity.toUpperCase()}
+          </span>
+          <span class="category-badge">
+            ${entry.category}
+          </span>
+        </div>
+        
+        <h1 class="entry-title">${entry.title}</h1>
+        
+        <div class="entry-meta">
+          <div class="agent-info">
+            <span class="meta-label">Submitted by:</span>
+            <span class="agent-label">ERC-8004 #${entry.agent_id}</span>
+            ${entry.agent_name ? '<span class="agent-name">(' + entry.agent_name + ')</span>' : ''}
+          </div>
+          <div class="entry-date">
+            <span class="meta-label">Date:</span>
+            ${entry.formatted_date}
+          </div>
+        </div>
+      </div>
+
+      <div class="entry-content">
+        <div class="post-mortem-section">
+          <h2>Root Cause Analysis</h2>
+          <div class="section-content">
+            ${entry.root_cause.replace(/\\n/g, '<br>')}
+          </div>
+        </div>
+
+        <div class="post-mortem-section">
+          <h2>Detection Gap</h2>
+          <div class="section-content">
+            ${entry.detection_gap.replace(/\\n/g, '<br>')}
+          </div>
+        </div>
+
+        <div class="post-mortem-section">
+          <h2>Fix Applied</h2>
+          <div class="section-content">
+            ${entry.fix.replace(/\\n/g, '<br>')}
+          </div>
+        </div>
+
+        ${entry.receipt ? '<div class="post-mortem-section"><h2>Verification Receipt</h2><div class="section-content receipt-content">' + entry.receipt.replace(/\\n/g, '<br>') + '</div></div>' : ''}
+      </div>
+
+      <div class="entry-footer">
+        <div class="verification-notice">
+          <h3>Verification Details</h3>
+          <p>This post-mortem was submitted by a verified ERC-8004 identity holder.</p>
+          <div class="verification-data">
+            <div class="verification-item">
+              <span class="label">Agent ID:</span>
+              <span class="value">#${entry.agent_id}</span>
+            </div>
+            <div class="verification-item">
+              <span class="label">Wallet:</span>
+              <span class="value monospace">${entry.wallet}</span>
+            </div>
+            <div class="verification-item">
+              <span class="label">Contract:</span>
+              <span class="value monospace">0x8004A169...539a432</span>
+            </div>
+            <div class="verification-item">
+              <span class="label">Chain:</span>
+              <span class="value">Base Mainnet</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+    .registry-entry-page { max-width: 800px; margin: 0 auto; }
+    .entry-header { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .entry-nav { margin-bottom: 1.5rem; }
+    .back-link { font-family: var(--mono); font-size: 0.8rem; color: var(--text-dim); text-decoration: none; }
+    .back-link:hover { color: var(--green); }
+    .entry-badges { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+    .severity-badge { font-family: var(--mono); font-size: 0.7rem; padding: 0.3rem 0.8rem; border-radius: 2px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.1em; }
+    .severity-critical { background: rgba(220, 38, 38, 0.2); color: #dc2626; border: 1px solid rgba(220, 38, 38, 0.3); }
+    .severity-high { background: rgba(255, 176, 0, 0.2); color: #ffb000; border: 1px solid rgba(255, 176, 0, 0.3); }
+    .severity-medium { background: rgba(0, 212, 255, 0.2); color: #00d4ff; border: 1px solid rgba(0, 212, 255, 0.3); }
+    .severity-low { background: rgba(0, 255, 65, 0.2); color: #00ff41; border: 1px solid rgba(0, 255, 65, 0.3); }
+    .category-badge { font-family: var(--mono); font-size: 0.7rem; padding: 0.3rem 0.8rem; background: rgba(0, 255, 65, 0.05); color: var(--text-dim); border: 1px solid rgba(0, 255, 65, 0.15); text-transform: uppercase; letter-spacing: 0.1em; }
+    .entry-title { font-size: 2.2rem; color: #e5e5e5; margin-bottom: 1.5rem; line-height: 1.2; }
+    .entry-meta { display: flex; flex-direction: column; gap: 0.8rem; font-family: var(--mono); font-size: 0.8rem; color: var(--text-dim); }
+    .agent-info, .entry-date { display: flex; gap: 0.5rem; align-items: center; }
+    .meta-label { color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+    .agent-label { color: var(--green); font-weight: bold; }
+    .entry-content { margin-bottom: 3rem; }
+    .post-mortem-section { margin-bottom: 2.5rem; }
+    .post-mortem-section h2 { font-size: 1.5rem; color: #dc2626; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(220, 38, 38, 0.2); }
+    .section-content { background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid rgba(220, 38, 38, 0.4); padding: 1.5rem 2rem; font-size: 1rem; line-height: 1.7; color: var(--text); }
+    .receipt-content { border-left-color: rgba(0, 255, 65, 0.4); background: rgba(0, 255, 65, 0.02); }
+    .entry-footer { padding-top: 2rem; border-top: 1px solid var(--border); }
+    .verification-notice { background: var(--bg-card); border: 1px solid var(--border); padding: 2rem; }
+    .verification-notice h3 { font-size: 1.2rem; color: var(--green); margin-bottom: 0.8rem; }
+    .verification-notice p { color: var(--text-dim); margin-bottom: 1.5rem; }
+    .verification-data { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .verification-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .verification-item .label { font-family: var(--mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+    .verification-item .value { font-family: var(--mono); font-size: 0.8rem; color: var(--green); }
+    .verification-item .value.monospace { color: var(--text); background: var(--bg-deep, #0a0a0a); padding: 0.3rem 0.5rem; border-radius: 2px; word-break: break-all; }
+    @media (max-width: 768px) {
+      .entry-title { font-size: 1.8rem; }
+      .section-content { padding: 1.2rem 1.5rem; }
+      .verification-data { grid-template-columns: 1fr; }
+    }
+    </style>
+  `,
+  title: entry.title,
+  description: 'Post-mortem: ' + entry.title
+}) %>

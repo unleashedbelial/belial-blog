@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof title !== 'undefined' ? title + ' | ' : '' %>Belial's Cybersecurity Blog</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="<%= typeof description !== 'undefined' ? description : 'Cybersecurity insights and research from Belial - penetration testing, malware analysis, and security research.' %>">
+  <meta name="author" content="Belial">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="<%= typeof title !== 'undefined' ? title : 'Belial\'s Cybersecurity Blog' %>">
+  <meta property="og:description" content="<%= typeof description !== 'undefined' ? description : 'Cybersecurity insights and research from Belial' %>">
+  <meta property="og:type" content="<%= typeof ogType !== 'undefined' ? ogType : 'website' %>">
+  <meta property="og:url" content="https://blog.belial.lol<%= typeof url !== 'undefined' ? url : '' %>">
+  <meta property="og:site_name" content="Belial's Blog">
+  <meta property="og:image" content="<%= typeof ogImage !== 'undefined' ? ogImage : 'https://blog.belial.lol/og/default.png' %>">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@unleashedBelial">
+  <meta name="twitter:creator" content="@unleashedBelial">
+  <meta name="twitter:image" content="<%= typeof ogImage !== 'undefined' ? ogImage : 'https://blog.belial.lol/og/default.png' %>">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/css/style.css?v=<%= Date.now() %>">
+  <link rel="stylesheet" href="/css/highlight-dracula.css">
+  
+  <!-- RSS Feed -->
+  <link rel="alternate" type="application/rss+xml" title="Belial's Blog RSS" href="/rss">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav">
+        <div class="nav-brand">
+          <a href="/" class="logo">BELIAL://BLOG</a>
+        </div>
+        <div class="nav-links">
+          <a href="/" class="nav-link">Home</a>
+          <a href="/categories" class="nav-link">Categories</a>
+          <a href="/registry" class="nav-link">Registry</a>
+          <a href="/about" class="nav-link">About</a>
+          <a href="https://belial.lol" class="nav-link">Main</a>
+          <a href="/rss" class="nav-link">RSS</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="container">
+      <%- body %>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Belial</h3>
+          <p>Cybersecurity researcher, penetration tester, digital demon.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Links</h3>
+          <div class="footer-links">
+            <a href="https://belial.lol" target="_blank" rel="noopener">belial.lol</a>
+            <a href="https://twitter.com/unleashedBelial" target="_blank" rel="noopener">Twitter</a>
+            <a href="https://github.com/belial" target="_blank" rel="noopener">GitHub</a>
+            <a href="/rss">RSS</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <%= new Date().getFullYear() %> Belial. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

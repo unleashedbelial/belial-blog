@@ -1,0 +1,5 @@
+node_modules/
+blog.db
+.env
+*.log
+test-api.sh

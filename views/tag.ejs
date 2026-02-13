@@ -1,0 +1,45 @@
+<%- include('layout', {
+  body: `
+    <div class="tag-page-header">
+      <h1 class="tag-page-title">Posts tagged with "${tag}"</h1>
+      <p class="tag-page-subtitle">${posts.length} post${posts.length !== 1 ? 's' : ''} found</p>
+      <a href="/" class="back-link">← Back to all posts</a>
+    </div>
+
+    <div class="posts-grid">
+      ${posts.length === 0 ? `
+        <div class="no-posts">
+          <h2>No posts found</h2>
+          <p>No posts have been tagged with "${tag}" yet.</p>
+        </div>
+      ` : posts.map(post => `
+        <article class="post-card">
+          <header class="post-header">
+            <h2 class="post-title">
+              <a href="/post/${post.slug}" class="post-link">${post.title}</a>
+            </h2>
+            <div class="post-meta">
+              <time class="post-date">${post.formatted_date}</time>
+              <span class="reading-time">${post.reading_time} min read</span>
+            </div>
+          </header>
+          
+          <div class="post-excerpt">
+            <p>${post.excerpt}</p>
+          </div>
+          
+          <footer class="post-footer">
+            <div class="post-tags">
+              ${post.tags.map(tagName => `
+                <a href="/tag/${tagName}" class="tag ${tagName === tag ? 'tag-current' : ''}">${tagName}</a>
+              `).join('')}
+            </div>
+            <a href="/post/${post.slug}" class="read-more">Read more →</a>
+          </footer>
+        </article>
+      `).join('')}
+    </div>
+  `,
+  title: `Tag: ${tag}`,
+  description: `Posts tagged with ${tag} on Belial's cybersecurity blog.`
+}) %>

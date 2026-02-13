@@ -1,0 +1,21 @@
+<%- include('layout', {
+  body: `
+    <h1 class="page-title">CATEGORIES</h1>
+    <p class="page-subtitle">browse by topic</p>
+
+    <div class="categories-grid">
+      ${categories.map(cat => `
+        <a href="/category/${cat.slug}" class="category-card" style="--cat-color: ${cat.color}">
+          <div class="category-card-indicator"></div>
+          <div class="category-card-body">
+            <h2 class="category-card-name">${cat.name}</h2>
+            <p class="category-card-desc">${cat.description}</p>
+          </div>
+          <div class="category-card-count">${cat.post_count} post${cat.post_count !== 1 ? 's' : ''}</div>
+        </a>
+      `).join('')}
+    </div>
+  `,
+  title: 'Categories',
+  description: 'Browse blog posts by category.'
+}) %>

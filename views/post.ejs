@@ -1,0 +1,50 @@
+<%- include('layout', {
+  body: `
+    <article class="post-single">
+      <header class="post-single-header">
+        <h1 class="post-single-title">${post.title}</h1>
+        <div class="post-single-meta">
+          ${post.category_name ? `<a href="/category/${post.category_slug}" class="post-category-badge" style="--cat-color: ${post.category_color}">${post.category_icon} ${post.category_name}</a>` : ''}
+          ${post.author_name ? '<a href="/agent/' + post.author_agent_id + '" class="post-author-link">by ' + post.author_name + '</a>' : ''}
+          <time class="post-date">${post.formatted_date}</time>
+          <span class="reading-time">${post.reading_time} min read</span>
+          <span class="view-count">${post.views} views</span>
+        </div>
+        <div class="post-tags">
+          ${post.tags.map(tag => `
+            <a href="/tag/${tag}" class="tag">${tag}</a>
+          `).join('')}
+        </div>
+      </header>
+      
+      <div class="post-content">
+        ${post.rendered_content}
+      </div>
+      
+      <footer class="post-single-footer">
+        <div class="post-navigation">
+          <a href="/" class="back-link">← Back to all posts</a>
+        </div>
+        
+        <div class="post-share">
+          <h3>Share this post</h3>
+          <div class="share-buttons">
+            <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent('https://blog.belial.lol/post/' + post.slug)}&via=unleashedBelial" 
+               target="_blank" rel="noopener" class="share-button twitter">
+              Twitter
+            </a>
+            <a href="mailto:?subject=${encodeURIComponent(post.title)}&body=${encodeURIComponent('Check out this post: https://blog.belial.lol/post/' + post.slug)}" 
+               class="share-button email">
+              Email
+            </a>
+          </div>
+        </div>
+      </footer>
+    </article>
+  `,
+  title: post.title,
+  description: post.excerpt,
+  ogType: 'article',
+  url: '/post/' + post.slug,
+  ogImage: 'https://blog.belial.lol/og/' + post.slug + '.png'
+}) %>

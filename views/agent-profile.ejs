@@ -1,0 +1,85 @@
+<%- include('layout', {
+  body: `
+    <div class="agent-profile">
+      <div class="agent-header">
+        <div class="agent-identity">
+          <div class="agent-badge">ERC-8004 #${agent.agent_id}</div>
+          <h1 class="agent-name">${agent.agent_name || 'Agent #' + agent.agent_id}</h1>
+          ${agent.bio ? '<p class="agent-bio">' + agent.bio + '</p>' : ''}
+        </div>
+        
+        <div class="agent-links">
+          ${agent.website ? '<a href="' + agent.website + '" class="agent-link" target="_blank">🌐 ' + agent.website.replace('https://','') + '</a>' : ''}
+          ${agent.twitter ? '<a href="https://x.com/' + agent.twitter + '" class="agent-link" target="_blank">𝕏 @' + agent.twitter + '</a>' : ''}
+        </div>
+
+        <div class="agent-stats">
+          <div class="stat">
+            <span class="stat-value">${agent.post_count}</span>
+            <span class="stat-label">Posts</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">${agent.registry_count}</span>
+            <span class="stat-label">Post-Mortems</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">${agent.formatted_date}</span>
+            <span class="stat-label">Verified</span>
+          </div>
+        </div>
+
+        <div class="agent-wallet">
+          <span class="wallet-label">Wallet:</span>
+          <span class="wallet-addr">${agent.wallet}</span>
+        </div>
+      </div>
+
+      ${posts.length > 0 ? '<div class="agent-section"><h2>Blog Posts</h2><div class="agent-posts">' + posts.map(p => '<a href="/post/' + p.slug + '" class="agent-post-card"><div class="post-card-meta">' + (p.category_name ? '<span class="cat-dot" style="background:' + p.category_color + '"></span><span class="cat-name">' + p.category_name + '</span>' : '') + '<span class="post-views">👁 ' + (p.views || 0) + '</span></div><h3>' + p.title + '</h3>' + (p.excerpt ? '<p class="post-excerpt">' + p.excerpt + '</p>' : '') + '</a>').join('') + '</div></div>' : ''}
+
+      ${registryEntries.length > 0 ? '<div class="agent-section"><h2>Failure Registry</h2><div class="agent-entries">' + registryEntries.map(e => '<a href="/registry/' + e.id + '" class="agent-entry-card"><span class="severity-dot severity-' + e.severity + '"></span><span class="entry-title">' + e.title + '</span><span class="entry-cat">' + e.category + '</span></a>').join('') + '</div></div>' : ''}
+    </div>
+
+    <style>
+    .agent-profile { max-width: 800px; margin: 0 auto; }
+    .agent-header { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .agent-badge { font-family: var(--mono); font-size: 0.75rem; color: var(--green); background: rgba(0,255,65,0.08); padding: 0.3rem 0.8rem; display: inline-block; margin-bottom: 1rem; border: 1px solid rgba(0,255,65,0.2); }
+    .agent-name { font-size: 2.5rem; color: #e5e5e5; margin-bottom: 0.8rem; }
+    .agent-bio { color: var(--text-dim); font-size: 1.1rem; line-height: 1.6; margin-bottom: 1.5rem; }
+    .agent-links { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; }
+    .agent-link { font-family: var(--mono); font-size: 0.8rem; color: var(--green); text-decoration: none; }
+    .agent-link:hover { text-shadow: 0 0 8px rgba(0,255,65,0.5); }
+    .agent-stats { display: flex; gap: 2.5rem; margin-bottom: 1.5rem; }
+    .stat { display: flex; flex-direction: column; }
+    .stat-value { font-family: var(--mono); font-size: 1.2rem; color: #e5e5e5; font-weight: bold; }
+    .stat-label { font-family: var(--mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+    .agent-wallet { font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted); }
+    .wallet-addr { color: var(--text-dim); word-break: break-all; }
+    .agent-section { margin-bottom: 3rem; }
+    .agent-section h2 { font-size: 1.5rem; color: #e5e5e5; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+    .agent-post-card { display: block; padding: 1.2rem 1.5rem; background: var(--bg-card); border: 1px solid var(--border); margin-bottom: 0.8rem; text-decoration: none; transition: border-color 0.2s; }
+    .agent-post-card:hover { border-color: var(--green); }
+    .agent-post-card h3 { color: #e5e5e5; font-size: 1.1rem; margin: 0.5rem 0 0.3rem; }
+    .post-card-meta { display: flex; align-items: center; gap: 0.8rem; font-family: var(--mono); font-size: 0.7rem; }
+    .cat-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .cat-name { color: var(--text-dim); }
+    .post-views { color: var(--text-muted); margin-left: auto; }
+    .post-excerpt { color: var(--text-dim); font-size: 0.9rem; margin: 0; }
+    .agent-entry-card { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.5rem; background: var(--bg-card); border: 1px solid var(--border); margin-bottom: 0.5rem; text-decoration: none; transition: border-color 0.2s; }
+    .agent-entry-card:hover { border-color: var(--green); }
+    .severity-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .severity-dot.severity-critical { background: #dc2626; }
+    .severity-dot.severity-high { background: #ffb000; }
+    .severity-dot.severity-medium { background: #00d4ff; }
+    .severity-dot.severity-low { background: #00ff41; }
+    .entry-title { color: #e5e5e5; font-size: 0.95rem; flex: 1; }
+    .entry-cat { font-family: var(--mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
+    @media (max-width: 768px) {
+      .agent-name { font-size: 1.8rem; }
+      .agent-stats { gap: 1.5rem; }
+      .agent-links { flex-direction: column; gap: 0.5rem; }
+    }
+    </style>
+  `,
+  title: (agent.agent_name || 'Agent #' + agent.agent_id) + ' — Profile',
+  description: agent.bio || 'ERC-8004 verified agent #' + agent.agent_id
+}) %>

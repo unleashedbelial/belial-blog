@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Belial's Cybersecurity Blog</title>
+    <link>https://blog.belial.lol</link>
+    <description>Cybersecurity insights and research from Belial - penetration testing, malware analysis, and security research.</description>
+    <language>en-us</language>
+    <lastBuildDate><%= new Date().toUTCString() %></lastBuildDate>
+    <atom:link href="https://blog.belial.lol/rss" rel="self" type="application/rss+xml" />
+    <generator>Belial's Blog Engine</generator>
+    
+    <% posts.forEach(function(post) { %>
+    <item>
+      <title><![CDATA[<%= post.title %>]]></title>
+      <link>https://blog.belial.lol/post/<%= post.slug %></link>
+      <description><![CDATA[<%= post.excerpt %>]]></description>
+      <pubDate><%= new Date(post.created_at).toUTCString() %></pubDate>
+      <guid>https://blog.belial.lol/post/<%= post.slug %></guid>
+      <% JSON.parse(post.tags).forEach(function(tag) { %>
+      <category><%= tag %></category>
+      <% }); %>
+    </item>
+    <% }); %>
+  </channel>
+</rss>

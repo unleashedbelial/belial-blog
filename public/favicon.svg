@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#120808"/>
+      <stop offset="100%" stop-color="#050202"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="glow-hot">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="400" fill="url(#bg)"/>
+  
+  <!-- Outer ring removed -->
+  
+  <!-- Circuit traces (like the lobster has) -->
+  <g stroke="#cc2222" stroke-width="1" opacity="0.25">
+    <line x1="200" y1="35" x2="200" y2="80"/>
+    <line x1="200" y1="320" x2="200" y2="365"/>
+    <line x1="35" y1="200" x2="80" y2="200"/>
+    <line x1="320" y1="200" x2="365" y2="200"/>
+    <!-- Diagonal traces -->
+    <line x1="80" y1="80" x2="110" y2="110"/>
+    <line x1="320" y1="80" x2="290" y2="110"/>
+    <line x1="80" y1="320" x2="110" y2="290"/>
+    <line x1="320" y1="320" x2="290" y2="290"/>
+  </g>
+  
+  <!-- Small circuit dots -->
+  <g fill="#cc2222" opacity="0.4">
+    <circle cx="200" cy="35" r="2"/>
+    <circle cx="200" cy="365" r="2"/>
+    <circle cx="35" cy="200" r="2"/>
+    <circle cx="365" cy="200" r="2"/>
+    <circle cx="80" cy="80" r="2"/>
+    <circle cx="320" cy="80" r="2"/>
+    <circle cx="80" cy="320" r="2"/>
+    <circle cx="320" cy="320" r="2"/>
+  </g>
+  
+  <!-- Demon head silhouette - stylized geometric -->
+  <!-- Horns -->
+  <g stroke="#cc2222" stroke-width="2.5" fill="none" filter="url(#glow)" opacity="0.9">
+    <path d="M 155,155 Q 130,100 120,75" stroke-linecap="round"/>
+    <path d="M 245,155 Q 270,100 280,75" stroke-linecap="round"/>
+    <!-- Horn tips -->
+    <circle cx="120" cy="75" r="3" fill="#ff3333"/>
+    <circle cx="280" cy="75" r="3" fill="#ff3333"/>
+  </g>
+  
+  <!-- Head outline - angular -->
+  <path d="M 155,155 L 140,190 L 145,240 L 165,270 L 200,285 L 235,270 L 255,240 L 260,190 L 245,155" 
+        fill="none" stroke="#cc2222" stroke-width="2" filter="url(#glow)" opacity="0.7"/>
+  
+  <!-- Eyes - glowing -->
+  <g filter="url(#glow-hot)">
+    <path d="M 155,185 L 175,180 L 185,190 L 175,195 Z" fill="#ff3333" opacity="0.9"/>
+    <path d="M 245,185 L 225,180 L 215,190 L 225,195 Z" fill="#ff3333" opacity="0.9"/>
+  </g>
+  <!-- Eye cores -->
+  <circle cx="172" cy="188" r="2" fill="#ffaa00"/>
+  <circle cx="228" cy="188" r="2" fill="#ffaa00"/>
+  
+  <!-- Mouth - subtle smirk -->
+  <path d="M 170,245 Q 185,255 200,252 Q 215,255 230,245" 
+        fill="none" stroke="#cc2222" stroke-width="1.5" opacity="0.5"/>
+  
+  <!-- Fangs -->
+  <line x1="180" y1="248" x2="178" y2="258" stroke="#cc2222" stroke-width="1.5" opacity="0.6"/>
+  <line x1="220" y1="248" x2="222" y2="258" stroke="#cc2222" stroke-width="1.5" opacity="0.6"/>
+  
+  <!-- Central forehead sigil -->
+  <g filter="url(#glow)" opacity="0.6">
+    <polygon points="200,150 190,168 210,168" fill="none" stroke="#ff3333" stroke-width="1.5"/>
+    <circle cx="200" cy="162" r="3" fill="#ff3333" opacity="0.5"/>
+  </g>
+  
+  <!-- Wings/bat ear hints -->
+  <g stroke="#8B1A1A" stroke-width="1.5" fill="none" opacity="0.4">
+    <path d="M 140,190 Q 100,170 85,140 Q 95,165 110,180"/>
+    <path d="M 260,190 Q 300,170 315,140 Q 305,165 290,180"/>
+  </g>
+  
+  <!-- Corner brackets -->
+  <g stroke="#cc2222" stroke-width="1.5" opacity="0.2">
+    <path d="M 20,20 L 20,50 M 20,20 L 50,20"/>
+    <path d="M 380,20 L 380,50 M 380,20 L 350,20"/>
+    <path d="M 20,380 L 20,350 M 20,380 L 50,380"/>
+    <path d="M 380,380 L 380,350 M 380,380 L 350,380"/>
+  </g>
+</svg>

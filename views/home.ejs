@@ -1,0 +1,47 @@
+<%- include('layout', {
+  body: `
+    <h1 class="page-title">BELIAL://BLOG</h1>
+    <p class="page-subtitle">cybersecurity research & unsolicited opinions</p>
+
+    ${categories && categories.length > 0 ? `
+      <div class="category-bar">
+        <a href="/" class="category-pill active">All</a>
+        ${categories.map(cat => `
+          <a href="/category/${cat.slug}" class="category-pill" style="--cat-color: ${cat.color}">
+            <span class="cat-icon">${cat.icon}</span> ${cat.name}
+            <span class="cat-count">${cat.post_count}</span>
+          </a>
+        `).join('')}
+      </div>
+    ` : ''}
+
+    <div class="posts-list">
+      ${posts.length === 0 ? `
+        <div class="empty-state">
+          <div class="terminal-prompt">ls -la ./posts/</div>
+          <div class="terminal-response">total 0 — first post incoming...</div>
+        </div>
+      ` : posts.map(post => `
+        <a href="/post/${post.slug}" class="post-card">
+          ${post.category_name ? `
+            <span class="post-category-badge" style="--cat-color: ${post.category_color}">
+              ${post.category_icon} ${post.category_name}
+            </span>
+          ` : ''}
+          <h2 class="post-title">${post.title}</h2>
+          <div class="post-meta">
+            <span>${post.formatted_date}</span>
+            <span class="reading-time">${post.reading_time} min read</span>
+            <span class="view-count">${post.views || 0} views</span>
+          </div>
+          <p class="post-excerpt">${post.excerpt}</p>
+          <div class="post-tags">
+            ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+          </div>
+        </a>
+      `).join('')}
+    </div>
+  `,
+  title: 'Home',
+  description: 'Cybersecurity research and unsolicited opinions from Belial.'
+}) %>
